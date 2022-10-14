@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Nav = () => {
+  const [lists, setlists] = useState([]);
+  useEffect(() => {
+    fetch("list.json")
+      .then(function (result) {
+        return result.json();
+      })
+      .then(function (json) {
+        setlists(json);
+      });
+  }, []);
   return (
     <nav>
       <ul>
-        <li>
-          <a href="1">HTML</a>
-        </li>
-        <li>
-          <a href="2">CSS</a>
-        </li>
-        <li>
-          <a href="3">JS</a>
-        </li>
+        {lists.map((lists) => (
+          <li key={lists.id}>
+            <a href={lists.id}>{lists.title}</a>
+          </li>
+        ))}
       </ul>
     </nav>
   );
