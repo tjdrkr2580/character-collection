@@ -3,14 +3,14 @@ import { useQuery } from "react-query";
 import Characte from "./Characte";
 
 const Character = () => {
-  const [page, setPage] = useState(42);
+  const [page, setPage] = useState(1);
   const fetchCharacters = async ({ queryKey }) => {
     const response = await fetch(
       `	https://rickandmortyapi.com/api/character?page=${queryKey[1]}`
     );
     return response.json();
   };
-  const { data, status, isPreviousData } = useQuery(
+  const { data, isPreviousData, isFetching, isError } = useQuery(
     ["characters", page],
     fetchCharacters,
     {
@@ -18,18 +18,16 @@ const Character = () => {
     }
   );
 
-  if (status === "loading") {
+  if (isFetching) {
     return <div>Loading...</div>;
-  } else if (status === "error") {
+  } else if (isError) {
     return <div>error</div>;
   }
-
-  console.log(data);
 
   return (
     <div className="characters">
       {data.results.map((character) => (
-        <Characte character={character} />
+        <Characte character={character} key={character.id} />
       ))}
       <div>
         <button
