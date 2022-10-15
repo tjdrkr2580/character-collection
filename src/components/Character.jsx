@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import Characte from "./Characte";
 
 const Character = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(42);
   const fetchCharacters = async ({ queryKey }) => {
     const response = await fetch(
       `	https://rickandmortyapi.com/api/character?page=${queryKey[1]}`
@@ -17,6 +17,8 @@ const Character = () => {
   } else if (status === "error") {
     return <div>error</div>;
   }
+
+  console.log(data);
 
   return (
     <div className="characters">
@@ -33,6 +35,7 @@ const Character = () => {
           Previous
         </button>
         <button
+          disabled={page >= data.info.pages}
           onClick={() => {
             setPage((old) => old + 1);
           }}
