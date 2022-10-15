@@ -24,8 +24,21 @@ const Character = () => {
         <Characte character={character} />
       ))}
       <div>
-        <button>Previous</button>
-        <button>Next</button>
+        <button
+          disabled={page === 1}
+          onClick={() => {
+            setPage((old) => old - 1);
+          }}
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => {
+            setPage((old) => old + 1);
+          }}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
