@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import Characte from "./Characte";
+import Loading from "./Loading";
 
 const Character = () => {
   const [page, setPage] = useState(1);
@@ -19,7 +20,7 @@ const Character = () => {
   );
 
   if (isFetching) {
-    return <div>Loading...</div>;
+    return <Loading />;
   } else if (isError) {
     return <div>error</div>;
   }
