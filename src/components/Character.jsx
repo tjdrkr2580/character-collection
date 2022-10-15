@@ -10,7 +10,9 @@ const Character = () => {
     );
     return response.json();
   };
-  const { data, status } = useQuery(["characters", page], fetchCharacters);
+  const { data, status } = useQuery(["characters", page], fetchCharacters, {
+    keepPreviousData: true,
+  });
 
   if (status === "loading") {
     return <div>Loading...</div>;
