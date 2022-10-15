@@ -10,9 +10,13 @@ const Character = () => {
     );
     return response.json();
   };
-  const { data, status } = useQuery(["characters", page], fetchCharacters, {
-    keepPreviousData: true,
-  });
+  const { data, status, isPreviousData } = useQuery(
+    ["characters", page],
+    fetchCharacters,
+    {
+      keepPreviousData: true,
+    }
+  );
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -37,7 +41,7 @@ const Character = () => {
           Previous
         </button>
         <button
-          disabled={page >= data.info.pages}
+          disabled={isPreviousData === true || !data.info.next}
           onClick={() => {
             setPage((old) => old + 1);
           }}
